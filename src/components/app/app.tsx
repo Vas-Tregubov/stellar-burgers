@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import { ConstructorPage } from '@pages';
 import { Feed } from '@pages';
@@ -12,11 +13,10 @@ import { NotFound404 } from '@pages';
 import { Modal } from '@components';
 import { OrderInfo } from '@components';
 import { IngredientDetails } from '@components';
+import { AppHeader } from '@components';
 
 import '../../index.css';
 import styles from './app.module.css';
-
-import { AppHeader } from '@components';
 
 const App = () => (
   <Router>
