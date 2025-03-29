@@ -104,20 +104,26 @@ type TNewOrderResponse = TServerResponse<{
   name: string;
 }>;
 
-export const orderBurgerApi = (data: string[]) =>
-  fetchWithRefresh<TNewOrderResponse>(`${URL}/orders`, {
+export const orderBurgerApi = (data: string[]) => {
+  console.log('Функция вызвана!');
+  const token = getCookie('accessToken');
+  console.log('Токен перед отправкой запроса:', token); // Проверяем, есть ли токен
+
+  return fetchWithRefresh<TNewOrderResponse>(`${URL}/orders`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      authorization: getCookie('accessToken')
+      authorization: token ? `Bearer ${token}` : '' // Убедимся, что формат правильный
     } as HeadersInit,
     body: JSON.stringify({
       ingredients: data
     })
   }).then((data) => {
+    console.log('Ответ от сервера:', data); // Проверяем, что вернул сервер
     if (data?.success) return data;
     return Promise.reject(data);
   });
+};
 
 type TOrderResponse = TServerResponse<{
   orders: TOrder[];

@@ -1,6 +1,6 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { getIngredientsApi } from "../../../utils/burger-api";
+import { getIngredientsApi } from '../../../utils/burger-api';
 
 export const getIngredientsThunk = createAsyncThunk(
   'ingredients/getIngredients',

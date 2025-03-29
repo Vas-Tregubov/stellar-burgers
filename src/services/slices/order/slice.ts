@@ -27,17 +27,17 @@ const orderSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-    .addCase(orderBurgerThunk.pending, (state) => {
-      state.isOrderLoading = true;
-    })
-    .addCase(orderBurgerThunk.rejected, (state, action) => {
-      state.isOrderLoading = false;
-      state.hasError = action.error.message || 'Произошла ошибка';
-    })
-    .addCase(orderBurgerThunk.fulfilled, (state, action) => {
-      state.isOrderLoading = false;
-      state.order = action.payload.order;
-    })  
+      .addCase(orderBurgerThunk.pending, (state) => {
+        state.isOrderLoading = true;
+      })
+      .addCase(orderBurgerThunk.rejected, (state, action) => {
+        state.isOrderLoading = false;
+        state.hasError = action.error.message || 'Произошла ошибка';
+      })
+      .addCase(orderBurgerThunk.fulfilled, (state, action) => {
+        state.isOrderLoading = false;
+        state.order = action.payload.order;
+      });
   },
   selectors: {
     isOrderLoadingSelector: (state) => state.isOrderLoading,

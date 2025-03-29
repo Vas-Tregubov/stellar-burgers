@@ -1,32 +1,29 @@
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import '../../index.css';
+import styles from './app.module.css';
+
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-  useNavigate
-} from 'react-router-dom';
+  AppHeader,
+  IngredientDetails,
+  Modal,
+  OrderInfo,
+  ProtectedRoute
+} from '@components';
+import {
+  ConstructorPage,
+  Feed,
+  ForgotPassword,
+  Login,
+  NotFound404,
+  Profile,
+  ProfileOrders,
+  Register,
+  ResetPassword
+} from '@pages';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
 import { getIngredientsThunk } from '../../services/slices/ingredients/actions';
 import { getUserThunk } from '../../services/slices/user/actions';
-
-import { ConstructorPage } from '@pages';
-import { Feed } from '@pages';
-import { Login } from '@pages';
-import { ForgotPassword } from '@pages';
-import { ResetPassword } from '@pages';
-import { Register } from '@pages';
-import { Profile } from '@pages';
-import { ProfileOrders } from '@pages';
-import { NotFound404 } from '@pages';
-import { Modal } from '@components';
-import { OrderInfo } from '@components';
-import { IngredientDetails } from '@components';
-import { AppHeader } from '@components';
-import { ProtectedRoute } from '@components';
-
-import '../../index.css';
-import styles from './app.module.css';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -34,6 +31,7 @@ const App = () => {
   const navigate = useNavigate();
   const background = location.state?.background;
 
+  // Загрузка данных
   useEffect(() => {
     dispatch(getIngredientsThunk());
     dispatch(getUserThunk());

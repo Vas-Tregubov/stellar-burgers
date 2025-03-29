@@ -13,7 +13,7 @@ const initialState: IIngredientsState = {
   ingredients: [],
   isIngredientsLoading: false,
   hasError: null
-}
+};
 
 const ingredientsSlice = createSlice({
   name: 'ingredients',
@@ -23,21 +23,22 @@ const ingredientsSlice = createSlice({
     builder
       .addCase(getIngredientsThunk.pending, (state) => {
         state.isIngredientsLoading = true;
-    })
+      })
       .addCase(getIngredientsThunk.rejected, (state, action) => {
         state.isIngredientsLoading = false;
         state.hasError = action.error.message || 'Произошла ошибка';
-    })
+      })
       .addCase(getIngredientsThunk.fulfilled, (state, action) => {
         state.isIngredientsLoading = false;
         state.ingredients = action.payload;
-    })
-      },
-    selectors: {
-      ingredientsSelector: (state) => state.ingredients,
-      isIngredientsLoadingSelector: (state) => state.isIngredientsLoading
-    }
+      });
+  },
+  selectors: {
+    ingredientsSelector: (state) => state.ingredients,
+    isIngredientsLoadingSelector: (state) => state.isIngredientsLoading
+  }
 });
 
-export const { ingredientsSelector, isIngredientsLoadingSelector }  = ingredientsSlice.selectors;
+export const { ingredientsSelector, isIngredientsLoadingSelector } =
+  ingredientsSlice.selectors;
 export default ingredientsSlice.reducer;
