@@ -33,8 +33,11 @@ const App = () => {
 
   // Загрузка данных
   useEffect(() => {
+    console.log('Запрашиваю пользователя...');
     dispatch(getIngredientsThunk());
-    dispatch(getUserThunk());
+    dispatch(getUserThunk()).then(() => {
+      console.log('Пользователь загружен');
+    });
   }, []);
 
   return (

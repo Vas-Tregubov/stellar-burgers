@@ -3,5 +3,8 @@ import { orderBurgerApi } from '../../../utils/burger-api';
 
 export const orderBurgerThunk = createAsyncThunk(
   'orders/postOrderBurger',
-  async (data: string[]) => orderBurgerApi(data)
+  async (data: string[]) => {
+    console.log('Заказ отправляется...');
+    return orderBurgerApi(data);
+  }
 );

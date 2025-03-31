@@ -33,9 +33,11 @@ export const logoutUserThunk = createAsyncThunk('users/logoutUser', async () =>
   })
 );
 
-export const getUserThunk = createAsyncThunk('users/getUser', async () =>
-  getUserApi()
-);
+export const getUserThunk = createAsyncThunk('user/getUser', async () => {
+  const response = await getUserApi();
+  console.log('Пользователь загружен:', response);
+  return response;
+});
 
 export const registerUserThunk = createAsyncThunk(
   'users/registerUser',
