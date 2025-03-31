@@ -35,6 +35,8 @@ export const refreshToken = (): Promise<TRefreshResponse> =>
       return refreshData;
     });
 
+/* Это предпочтительны способ обновления токена, но допустимы и другие, главное,
+что бы обновление токена работало корректно */
 export const fetchWithRefresh = async <T>(
   url: RequestInfo,
   options: RequestInit
@@ -61,7 +63,7 @@ type TIngredientsResponse = TServerResponse<{
   data: TIngredient[];
 }>;
 
-type TFeedsResponse = TServerResponse<{
+export type TFeedsResponse = TServerResponse<{
   orders: TOrder[];
   total: number;
   totalToday: number;
@@ -99,33 +101,27 @@ export const getOrdersApi = () =>
     return Promise.reject(data);
   });
 
-type TNewOrderResponse = TServerResponse<{
+export type TNewOrderResponse = TServerResponse<{
   order: TOrder;
   name: string;
 }>;
 
-export const orderBurgerApi = (data: string[]) => {
-  console.log('Функция вызвана!');
-  const token = getCookie('accessToken');
-  console.log('Токен перед отправкой запроса:', token); // Проверяем, есть ли токен
-
-  return fetchWithRefresh<TNewOrderResponse>(`${URL}/orders`, {
+export const orderBurgerApi = (data: string[]) =>
+  fetchWithRefresh<TNewOrderResponse>(`${URL}/orders`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
-      authorization: token ? `Bearer ${token}` : '' // Убедимся, что формат правильный
+      authorization: getCookie('accessToken')
     } as HeadersInit,
     body: JSON.stringify({
       ingredients: data
     })
   }).then((data) => {
-    console.log('Ответ от сервера:', data); // Проверяем, что вернул сервер
     if (data?.success) return data;
     return Promise.reject(data);
   });
-};
 
-type TOrderResponse = TServerResponse<{
+export type TOrderResponse = TServerResponse<{
   orders: TOrder[];
 }>;
 
