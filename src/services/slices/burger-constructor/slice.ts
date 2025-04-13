@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TIngredient } from '../../../utils/types';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface burgerConstructorState {
   burgerConstructor: {
@@ -33,7 +34,7 @@ const burgerConstructorSlice = createSlice({
         }
       },
       prepare: (ingredient: TIngredient) => {
-        const id = Math.random().toString(36).slice(2, 11); // Генерируем уникальный ID
+        const id = uuidv4(); // Генерируем уникальный ID
         return { payload: { ...ingredient, id } };
       }
     },
